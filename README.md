@@ -46,3 +46,9 @@ Every answer is a hypothesis about what this person might say. Check it with the
 
 Run each persona against 5 screenshots of your real product and ask "What would stop you from buying/approving this?"
 If at least one answer tells you something you'd act on, move on to task 3 (the web page). If not, stop.
+
+## Web version (no API key)
+
+`web/stakeholder-twins.html` is the same twin as a Claude page: persona dropdown, screenshot upload, chat,
+optional voice. It runs on the viewer's own Claude account through the page's `sample` capability, so it
+needs no key or install. Open the published page at https://claude.ai/artifact/PUZwvGNNfsNYdbN57KKoFc.
