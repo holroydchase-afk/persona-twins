@@ -186,7 +186,7 @@ const PERSONAS = [
     starter: "Would you sign up? What would stop you?"
   },
   {
-    id: "sales", voice: "buttery", look: { skin: "#8d5a3b", hair: "#1a1a1a", style: "short", shirt: "#16a34a" }, name: "Marcus", placeholder: "Placeholder. Replace with a real seller you know.",
+    id: "sales", voice: "default", look: { skin: "#8d5a3b", hair: "#1a1a1a", style: "short", shirt: "#16a34a" }, name: "Marcus", placeholder: "Placeholder. Replace with a real seller you know.",
     role: "Account executive selling the product to mid-market buyers. Lives on demos and quota.",
     goals: ["Show a \"wow\" moment in the first 3 minutes of a demo", "Have a clear answer to \"how is this different from X?\"", "Hand prospects something they can forward to their boss"],
     fears: ["A demo that breaks or loads slowly in front of a prospect", "Features the prospect asks about that he can't find", "Pricing or packaging he can't explain cleanly"],
@@ -216,10 +216,10 @@ const els = { persona: $("persona"), badge: $("badge"), shots: $("shots"), file:
 
 let shots = []; // {name, blob, url, example}
 let turns = []; // {role, content}
-const VOICES = ["buttery", "airy", "glassy", "rounded"];
+let VOICES = ["default", "buttery", "airy", "glassy", "rounded"];
 let voiceOn = true;
 try { voiceOn = localStorage.getItem("twin-voice-on") !== "0"; } catch (e) {}
-function voiceFor(p) { try { const v = localStorage.getItem("twin-voice2-" + p.id); if (VOICES.includes(v)) return v; } catch (e) {} return p.voice; }
+function voiceFor(p) { try { const v = localStorage.getItem("twin-voice3-" + p.id); if (VOICES.includes(v)) return v; } catch (e) {} return p.voice; }
 let sample = null, tts = null, dictation = null, maxShots = MAX_SHOTS, ctl = null, busy = false;
 
 function esc(s) { return s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
@@ -262,14 +262,14 @@ function renderBadge() {
       <div><div class="who-name">${esc(p.name)}</div><div class="who-role">${esc(p.role)}</div><div class="face-state" id="face-state" aria-live="polite"></div></div></div>
     <div class="placeholder-note">${esc(p.placeholder)}</div>
     ${tts ? `<div class="voice-row"><label><input type="checkbox" id="voice-on" ${voiceOn ? "checked" : ""}> Speak answers aloud</label>
-      <label>Voice <select id="voice-pick">${VOICES.map((v) => `<option value="${v}" ${v === voiceFor(p) ? "selected" : ""}>${v[0].toUpperCase() + v.slice(1)}</option>`).join("")}</select></label>
+      <label>Voice <select id="voice-pick">${VOICES.map((v) => `<option value="${v}" ${v === voiceFor(p) ? "selected" : ""}>${v === "default" ? "Default (original)" : v[0].toUpperCase() + v.slice(1)}</option>`).join("")}</select></label>
       <button type="button" class="speak" id="voice-test">Preview</button></div>` : ""}
     <details><summary>Goals, fears and pet peeves</summary>
       <h4>Goals</h4>${list(p.goals)}<h4>Fears</h4>${list(p.fears)}<h4>Pet peeves</h4>${list(p.peeves)}<h4>Sounds like</h4>${list(p.quotes.map((q) => `"${q}"`))}
     </details>`;
   const on = $("voice-on"), pick = $("voice-pick"), test = $("voice-test");
   if (on) on.onchange = () => { voiceOn = on.checked; try { localStorage.setItem("twin-voice-on", voiceOn ? "1" : "0"); } catch (e) {} if (!voiceOn) tts?.stop().catch(() => {}); };
-  if (pick) pick.onchange = () => { try { localStorage.setItem("twin-voice2-" + p.id, pick.value); } catch (e) {} };
+  if (pick) pick.onchange = () => { try { localStorage.setItem("twin-voice3-" + p.id, pick.value); } catch (e) {} };
   if (test) test.onclick = () => speak(p.quotes[0]);
 }
 
@@ -429,7 +429,8 @@ async function ask() {
 async function speak(text) {
   if (!tts) return;
   const spoken = text.replace(/\[#\d+\s*([^\]]*)\]/g, "$1").replace(/\*\*/g, "").slice(0, 2000);
-  try { await tts.speak(spoken, { voice: voiceFor(current()), language: "en" }); } catch (e) { /* stopped or unavailable: text stays on screen */ }
+  const v = voiceFor(current());
+  try { await tts.speak(spoken, v === "default" ? {} : { voice: v }); } catch (e) { /* stopped or unavailable: text stays on screen */ }
 }
 
 // Events
@@ -474,6 +475,7 @@ loadExample();
     if (!t) return;
     t.onState(({ state }) => { els.hush.hidden = state === "idle"; if (state === "speaking") setFace("speaking"); else if (state === "idle" || state === "paused") setFace(busy ? "thinking" : "idle"); });
     els.hush.onclick = () => t.stop().catch(() => {});
+    t.voices().then((vs) => { if (Array.isArray(vs) && vs.length) { VOICES = ["default", ...vs.filter((x) => x !== "default")]; renderBadge(); } }).catch(() => {});
     renderBadge(); renderLog();
   });
   c.use("dictation").then((d) => {
