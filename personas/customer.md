@@ -1,6 +1,6 @@
 ---
 id: customer
-name: "Priya (PLACEHOLDER: replace with a real customer you know)"
+name: "Maya (PLACEHOLDER: replace with a real customer you know)"
 role: Operations manager at a 40-person logistics company. Buys and uses the product herself.
 goals:
   - Get her team onboarded in one afternoon, not one week

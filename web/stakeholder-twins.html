@@ -54,6 +54,16 @@ select { width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-r
 .badge { display: grid; gap: 10px; margin-top: 14px; }
 .who { display: flex; align-items: center; gap: 12px; }
 .avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 1.1rem; background: var(--accent); color: var(--accent-ink); flex: none; }
+.face { width: 96px; height: 96px; flex: none; border-radius: 50%; background: var(--you); overflow: hidden; }
+.face svg { width: 100%; height: 100%; display: block; }
+.face .mouth, .face .eyes, .face .pupils { transform-box: fill-box; transform-origin: center; }
+.face .eyes { animation: blink 4.6s infinite; }
+.face[data-state="thinking"] .pupils { transform: translate(3px, -3px); transition: transform .3s; }
+.face[data-state="speaking"] .mouth { animation: talk .9s infinite; }
+.face-state { font-size: 12px; color: var(--muted); }
+@keyframes blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+@keyframes talk { 0% { transform: scaleY(.35); } 12% { transform: scaleY(1); } 25% { transform: scaleY(.5); } 38% { transform: scaleY(.9); } 50% { transform: scaleY(.3); } 63% { transform: scaleY(1.05); } 75% { transform: scaleY(.6); } 88% { transform: scaleY(.85); } 100% { transform: scaleY(.35); } }
+@media (prefers-reduced-motion: reduce) { .face .eyes { animation: none; } .face[data-state="speaking"] .mouth { animation-duration: 2.4s; } }
 .who-name { font-family: var(--display); font-weight: 700; font-size: 1.1rem; line-height: 1.2; }
 .who-role { color: var(--muted); font-size: 13px; }
 .placeholder-note { font-size: 12px; color: var(--warn); }
@@ -89,7 +99,11 @@ details h4 { margin: 8px 0 0; font-size: 12px; text-transform: uppercase; letter
 .ref { font-family: var(--mono); font-size: 12.5px; background: var(--mark); color: var(--mark-ink); padding: 1px 5px; border-radius: 4px; white-space: normal; }
 .thinking { color: var(--muted); font-style: italic; }
 .err { color: var(--warn); font-size: 13px; margin-top: 4px; }
-.speak { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 12px; padding: 0; text-decoration: underline; }
+.speak { border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; font-size: 12px; padding: 2px 9px; border-radius: 999px; }
+.speak:hover { border-color: var(--accent); }
+.voice-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; }
+.voice-row select { width: auto; padding: 5px 8px; }
+.voice-row label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
 .empty { color: var(--muted); font-size: 14px; display: grid; gap: 10px; }
 .starters { display: flex; flex-wrap: wrap; gap: 8px; }
 .starter { border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-size: 13px; }
@@ -143,6 +157,7 @@ details h4 { margin: 8px 0 0; font-size: 12px; text-transform: uppercase; letter
         <div class="row">
           <div class="left">
             <button class="btn" id="mic" type="button" hidden>🎙 Speak</button>
+            <button class="btn" id="hush" type="button" hidden>■ Stop voice</button>
             <span class="disclaimer">Answers are hypotheses, not data. Check them with the real person.</span>
           </div>
           <div class="right">
@@ -159,7 +174,7 @@ details h4 { margin: 8px 0 0; font-size: 12px; text-transform: uppercase; letter
 <script>
 const PERSONAS = [
   {
-    id: "customer", name: "Priya", placeholder: "Placeholder. Replace with a real customer you know.",
+    id: "customer", voice: "airy", look: { skin: "#c68863", hair: "#2b1d16", style: "bun", shirt: "#3b82f6" }, name: "Maya", placeholder: "Placeholder. Replace with a real customer you know.",
     role: "Operations manager at a 40-person logistics company. Buys and uses the product herself.",
     goals: ["Get her team onboarded in one afternoon, not one week", "See at a glance whether today's work is on track", "Justify the spend to her CFO with one number"],
     fears: ["Paying for seats nobody uses", "Getting locked in and losing her data if she leaves", "Looking stupid in front of her team because the tool confused them"],
@@ -169,7 +184,7 @@ const PERSONAS = [
     starter: "Would you sign up? What would stop you?"
   },
   {
-    id: "sales", name: "Marcus", placeholder: "Placeholder. Replace with a real seller you know.",
+    id: "sales", voice: "rounded", look: { skin: "#8d5a3b", hair: "#1a1a1a", style: "short", shirt: "#16a34a" }, name: "Marcus", placeholder: "Placeholder. Replace with a real seller you know.",
     role: "Account executive selling the product to mid-market buyers. Lives on demos and quota.",
     goals: ["Show a \"wow\" moment in the first 3 minutes of a demo", "Have a clear answer to \"how is this different from X?\"", "Hand prospects something they can forward to their boss"],
     fears: ["A demo that breaks or loads slowly in front of a prospect", "Features the prospect asks about that he can't find", "Pricing or packaging he can't explain cleanly"],
@@ -179,7 +194,7 @@ const PERSONAS = [
     starter: "Could you demo this to a buyer tomorrow?"
   },
   {
-    id: "legal", name: "Elena", placeholder: "Placeholder. Replace with a real counsel you know.",
+    id: "legal", voice: "glassy", look: { skin: "#f0c9a8", hair: "#7a4a2a", style: "long", glasses: true, shirt: "#7c3aed" }, name: "Elena", placeholder: "Placeholder. Replace with a real counsel you know.",
     role: "In-house counsel at a customer company who must approve the vendor before purchase.",
     goals: ["Know exactly what data is collected, where it goes and who can see it", "Find the terms, privacy policy and DPA without asking anyone", "Make sure nothing in the product makes promises the contract doesn't"],
     fears: ["Personal data shared with third parties without consent", "AI features trained on her company's data", "Marketing claims (\"guaranteed\", \"100% secure\", \"compliant\") that create liability"],
@@ -195,10 +210,14 @@ const MAX_SHOTS = 5;
 
 const $ = (id) => document.getElementById(id);
 const els = { persona: $("persona"), badge: $("badge"), shots: $("shots"), file: $("file"), drop: $("drop"), hint: $("shot-hint"),
-  log: $("log"), form: $("form"), q: $("q"), send: $("send"), stop: $("stop"), mic: $("mic"), reset: $("reset"), status: $("status") };
+  log: $("log"), form: $("form"), q: $("q"), send: $("send"), stop: $("stop"), mic: $("mic"), hush: $("hush"), reset: $("reset"), status: $("status") };
 
 let shots = []; // {name, blob, url, example}
 let turns = []; // {role, content}
+const VOICES = ["airy", "glassy", "rounded", "buttery"];
+let voiceOn = true;
+try { voiceOn = localStorage.getItem("twin-voice-on") !== "0"; } catch (e) {}
+function voiceFor(p) { try { const v = localStorage.getItem("twin-voice-" + p.id); if (VOICES.includes(v)) return v; } catch (e) {} return p.voice; }
 let sample = null, tts = null, dictation = null, maxShots = MAX_SHOTS, ctl = null, busy = false;
 
 function esc(s) { return s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
@@ -209,16 +228,47 @@ function renderPersonaPicker() {
   try { const saved = localStorage.getItem("twin-persona"); if (saved && PERSONAS.some((p) => p.id === saved)) els.persona.value = saved; } catch (e) {}
 }
 
+function faceSvg(p) {
+  const L = p.look;
+  const back = L.style === "long" ? `<path d="M22 50 Q20 20 50 18 Q80 20 78 50 L80 86 L20 86 Z" fill="${L.hair}"/>` : "";
+  const top = L.style === "bun" ? `<circle cx="50" cy="15" r="9" fill="${L.hair}"/><path d="M27 44 Q28 22 50 22 Q72 22 73 44 Q64 32 50 32 Q36 32 27 44 Z" fill="${L.hair}"/>`
+    : L.style === "short" ? `<path d="M28 42 Q28 21 50 21 Q72 21 72 42 Q70 30 50 29 Q30 30 28 42 Z" fill="${L.hair}"/>`
+    : `<path d="M27 46 Q26 21 50 21 Q74 21 73 46 Q66 30 52 29 Q40 34 27 46 Z" fill="${L.hair}"/>`;
+  const glasses = L.glasses ? `<g fill="none" stroke="#2b2b2b" stroke-width="1.6"><circle cx="41" cy="48" r="6"/><circle cx="59" cy="48" r="6"/><path d="M47 48 h6"/></g>` : "";
+  return `<svg viewBox="0 0 100 100" aria-hidden="true">${back}
+    <path d="M18 100 Q20 78 50 76 Q80 78 82 100 Z" fill="${L.shirt}"/>
+    <rect x="44" y="64" width="12" height="14" rx="4" fill="${L.skin}"/>
+    <ellipse cx="50" cy="48" rx="22" ry="25" fill="${L.skin}"/>${top}
+    <g class="eyes"><ellipse cx="41" cy="48" rx="3.2" ry="3.6" fill="#fff"/><ellipse cx="59" cy="48" rx="3.2" ry="3.6" fill="#fff"/>
+      <g class="pupils"><circle cx="41" cy="48.5" r="1.9" fill="#1d1d1d"/><circle cx="59" cy="48.5" r="1.9" fill="#1d1d1d"/></g></g>
+    <path d="M36 41 q5 -3 10 0 M54 41 q5 -3 10 0" stroke="${L.hair}" stroke-width="1.6" fill="none" stroke-linecap="round"/>${glasses}
+    <g class="mouth"><ellipse cx="50" cy="62" rx="6" ry="3" fill="#5a2323"/></g>
+  </svg>`;
+}
+let faceState = "idle";
+function setFace(state) {
+  faceState = state;
+  const f = $("face"); if (f) f.dataset.state = state;
+  const t = $("face-state"); if (t) t.textContent = state === "thinking" ? "Looking at your screens…" : state === "speaking" ? "Talking" : "";
+}
+
 function renderBadge() {
   const p = current();
   const list = (xs) => `<ul>${xs.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
   els.badge.innerHTML = `
-    <div class="who"><div class="avatar" aria-hidden="true">${esc(p.name[0])}</div>
-      <div><div class="who-name">${esc(p.name)}</div><div class="who-role">${esc(p.role)}</div></div></div>
+    <div class="who"><div class="face" id="face" data-state="${faceState}">${faceSvg(p)}</div>
+      <div><div class="who-name">${esc(p.name)}</div><div class="who-role">${esc(p.role)}</div><div class="face-state" id="face-state" aria-live="polite"></div></div></div>
     <div class="placeholder-note">${esc(p.placeholder)}</div>
+    ${tts ? `<div class="voice-row"><label><input type="checkbox" id="voice-on" ${voiceOn ? "checked" : ""}> Speak answers aloud</label>
+      <label>Voice <select id="voice-pick">${VOICES.map((v) => `<option value="${v}" ${v === voiceFor(p) ? "selected" : ""}>${v[0].toUpperCase() + v.slice(1)}</option>`).join("")}</select></label>
+      <button type="button" class="speak" id="voice-test">Preview</button></div>` : ""}
     <details><summary>Goals, fears and pet peeves</summary>
       <h4>Goals</h4>${list(p.goals)}<h4>Fears</h4>${list(p.fears)}<h4>Pet peeves</h4>${list(p.peeves)}<h4>Sounds like</h4>${list(p.quotes.map((q) => `"${q}"`))}
     </details>`;
+  const on = $("voice-on"), pick = $("voice-pick"), test = $("voice-test");
+  if (on) on.onchange = () => { voiceOn = on.checked; try { localStorage.setItem("twin-voice-on", voiceOn ? "1" : "0"); } catch (e) {} if (!voiceOn) tts?.stop().catch(() => {}); };
+  if (pick) pick.onchange = () => { try { localStorage.setItem("twin-voice-" + p.id, pick.value); } catch (e) {} };
+  if (test) test.onclick = () => speak(p.quotes[0]);
 }
 
 function renderShots() {
@@ -305,7 +355,7 @@ function appendMsg(t, i) {
   const d = document.createElement("div");
   d.className = `msg ${t.role === "user" ? "you" : "twin"}`;
   const from = t.role === "user" ? "You" : p.name;
-  d.innerHTML = `<div class="from">${esc(from)}${t.role === "assistant" && tts && !t.pending ? ' <button type="button" class="speak">Listen</button>' : ""}</div>
+  d.innerHTML = `<div class="from">${esc(from)}${t.role === "assistant" && tts && !t.pending ? ' <button type="button" class="speak">▶ Play again</button>' : ""}</div>
     <div class="body ${t.pending ? "thinking" : ""}">${t.pending ? `${esc(p.name)} is looking at the screens…` : bodyHtml(t.content)}</div>${t.error ? `<div class="err">${esc(t.error)}</div>` : ""}`;
   const sp = d.querySelector(".speak");
   if (sp) sp.onclick = () => speak(t.content);
@@ -327,6 +377,7 @@ const ERR = {
 };
 
 function setBusy(b) {
+  if (b) setFace("thinking"); else if (faceState === "thinking") setFace("idle");
   busy = b; els.send.disabled = b; els.stop.hidden = !b; els.persona.disabled = b;
 }
 
@@ -355,6 +406,7 @@ async function ask() {
       onText: ({ text }) => { body.classList.remove("thinking"); body.innerHTML = bodyHtml(text); els.log.scrollTop = els.log.scrollHeight; },
     });
     reply.content = text; reply.pending = false;
+    if (voiceOn) speak(text);
     if (truncated) reply.error = "Cut short. Ask for less at a time.";
     turns.push(reply);
   } catch (e) {
@@ -374,7 +426,8 @@ async function ask() {
 
 async function speak(text) {
   if (!tts) return;
-  try { await tts.speak(text.replace(/\[#(\d+)[^\]]*\]/g, "").slice(0, 2000)); } catch (e) { /* stopped or unavailable: text stays on screen */ }
+  const spoken = text.replace(/\[#\d+\s*([^\]]*)\]/g, "$1").replace(/\*\*/g, "").slice(0, 2000);
+  try { await tts.speak(spoken, { voice: voiceFor(current()), language: "en" }); } catch (e) { /* stopped or unavailable: text stays on screen */ }
 }
 
 // Events
@@ -414,7 +467,13 @@ loadExample();
     const lim = await sample.limits().catch(() => null);
     if (lim?.images) { maxShots = Math.min(MAX_SHOTS, lim.images.maxCount); renderShots(); }
   }
-  c.use("tts").then((t) => { tts = t; if (t) renderLog(); });
+  c.use("tts").then((t) => {
+    tts = t;
+    if (!t) return;
+    t.onState(({ state }) => { els.hush.hidden = state === "idle"; if (state === "speaking") setFace("speaking"); else if (state === "idle" || state === "paused") setFace(busy ? "thinking" : "idle"); });
+    els.hush.onclick = () => t.stop().catch(() => {});
+    renderBadge(); renderLog();
+  });
   c.use("dictation").then((d) => {
     dictation = d;
     if (!d) return;
