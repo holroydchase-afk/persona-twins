@@ -11,8 +11,9 @@ Last updated: 2026-11-20
   with images, `tts` for voice, `dictation` for the mic). No API key.
 - **Docs:** README with usage and persona format; MIT license, copyright Chase Holroyd.
 - **Optional CLI:** `cli/twin.ts`, Claude API with prompt caching. Needs `ANTHROPIC_API_KEY`.
-- **Personas:** `personas/customer.md` (Maya), `sales.md` (Marcus), `legal.md` (Elena). Placeholders.
-  The page keeps its own copy in the `PERSONAS` array; keep the two in sync.
+- **Personas:** template pack in `personas/`: `customer.md` (Maya), `sales.md` (Marcus), `legal.md` (Elena),
+  `TEMPLATE.md` and a writing guide. The page's `PERSONAS` list is generated from these files by
+  `npm run sync-personas` in `cli/`; republish the page after syncing.
 
 ## Known issues
 
@@ -24,5 +25,5 @@ Last updated: 2026-11-20
 
 1. Make the Claude page the main demo. Done (PR #1).
 2. README with a one-line description, usage, MIT license and demo link. Done (PR #2, license name in PR #3).
-3. Sharpen the customer, sales and legal personas into a shareable template pack.
+3. Sharpen the customer, sales and legal personas into a shareable template pack. **This PR.**
 4. Portfolio card line and LinkedIn line for Product Studio (pasted by Chase, not committed to other repos).
