@@ -61,6 +61,8 @@ select { width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-r
 .face[data-state="thinking"] .pupils { transform: translate(3px, -3px); transition: transform .3s; }
 .face[data-state="speaking"] .mouth { animation: talk .9s infinite; }
 .face-state { font-size: 12px; color: var(--muted); }
+.avatar { box-shadow: 0 0 0 0 var(--accent); transition: box-shadow .3s; }
+.avatar[data-state="speaking"] { box-shadow: 0 0 0 4px var(--you), 0 0 0 6px var(--accent); }
 @keyframes blink { 0%, 95%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
 @keyframes talk { 0% { transform: scaleY(.35); } 12% { transform: scaleY(1); } 25% { transform: scaleY(.5); } 38% { transform: scaleY(.9); } 50% { transform: scaleY(.3); } 63% { transform: scaleY(1.05); } 75% { transform: scaleY(.6); } 88% { transform: scaleY(.85); } 100% { transform: scaleY(.35); } }
 @media (prefers-reduced-motion: reduce) { .face .eyes { animation: none; } .face[data-state="speaking"] .mouth { animation-duration: 2.4s; } }
@@ -256,7 +258,7 @@ function renderBadge() {
   const p = current();
   const list = (xs) => `<ul>${xs.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
   els.badge.innerHTML = `
-    <div class="who"><div class="face" id="face" data-state="${faceState}">${faceSvg(p)}</div>
+    <div class="who"><div class="avatar" id="face" data-state="${faceState}" aria-hidden="true">${esc(p.name[0])}</div>
       <div><div class="who-name">${esc(p.name)}</div><div class="who-role">${esc(p.role)}</div><div class="face-state" id="face-state" aria-live="polite"></div></div></div>
     <div class="placeholder-note">${esc(p.placeholder)}</div>
     ${tts ? `<div class="voice-row"><label><input type="checkbox" id="voice-on" ${voiceOn ? "checked" : ""}> Speak answers aloud</label>
