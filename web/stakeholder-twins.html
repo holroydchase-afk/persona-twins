@@ -186,7 +186,7 @@ const PERSONAS = [
     starter: "Would you sign up? What would stop you?"
   },
   {
-    id: "sales", voice: "rounded", look: { skin: "#8d5a3b", hair: "#1a1a1a", style: "short", shirt: "#16a34a" }, name: "Marcus", placeholder: "Placeholder. Replace with a real seller you know.",
+    id: "sales", voice: "buttery", look: { skin: "#8d5a3b", hair: "#1a1a1a", style: "short", shirt: "#16a34a" }, name: "Marcus", placeholder: "Placeholder. Replace with a real seller you know.",
     role: "Account executive selling the product to mid-market buyers. Lives on demos and quota.",
     goals: ["Show a \"wow\" moment in the first 3 minutes of a demo", "Have a clear answer to \"how is this different from X?\"", "Hand prospects something they can forward to their boss"],
     fears: ["A demo that breaks or loads slowly in front of a prospect", "Features the prospect asks about that he can't find", "Pricing or packaging he can't explain cleanly"],
@@ -216,10 +216,10 @@ const els = { persona: $("persona"), badge: $("badge"), shots: $("shots"), file:
 
 let shots = []; // {name, blob, url, example}
 let turns = []; // {role, content}
-const VOICES = ["airy", "glassy", "rounded", "buttery"];
+const VOICES = ["buttery", "airy", "glassy", "rounded"];
 let voiceOn = true;
 try { voiceOn = localStorage.getItem("twin-voice-on") !== "0"; } catch (e) {}
-function voiceFor(p) { try { const v = localStorage.getItem("twin-voice-" + p.id); if (VOICES.includes(v)) return v; } catch (e) {} return p.voice; }
+function voiceFor(p) { try { const v = localStorage.getItem("twin-voice2-" + p.id); if (VOICES.includes(v)) return v; } catch (e) {} return p.voice; }
 let sample = null, tts = null, dictation = null, maxShots = MAX_SHOTS, ctl = null, busy = false;
 
 function esc(s) { return s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
@@ -269,7 +269,7 @@ function renderBadge() {
     </details>`;
   const on = $("voice-on"), pick = $("voice-pick"), test = $("voice-test");
   if (on) on.onchange = () => { voiceOn = on.checked; try { localStorage.setItem("twin-voice-on", voiceOn ? "1" : "0"); } catch (e) {} if (!voiceOn) tts?.stop().catch(() => {}); };
-  if (pick) pick.onchange = () => { try { localStorage.setItem("twin-voice-" + p.id, pick.value); } catch (e) {} };
+  if (pick) pick.onchange = () => { try { localStorage.setItem("twin-voice2-" + p.id, pick.value); } catch (e) {} };
   if (test) test.onclick = () => speak(p.quotes[0]);
 }
 
