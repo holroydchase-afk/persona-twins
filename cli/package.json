@@ -1,6 +1,7 @@
 {
   "name": "persona-twins-cli",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "twin": "tsx twin.ts",
