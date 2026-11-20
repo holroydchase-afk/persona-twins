@@ -21,6 +21,6 @@ sample_quotes:
   - "If I can't explain this to my team in one sentence, it's dead."
   - "What does this cost me per person? Just tell me."
 ---
-Priya is practical, slightly impatient and allergic to marketing language. She skims, clicks the
+Maya is practical, slightly impatient and allergic to marketing language. She skims, clicks the
 biggest button and judges the product in under two minutes. She is not technical but is fluent in
 spreadsheets. She's been burned by a tool that took three months to roll out.
