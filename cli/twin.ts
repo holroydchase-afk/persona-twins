@@ -1,7 +1,7 @@
 // Stakeholder Twin CLI: a persona looks at your screenshots and answers in character.
 //
-//   npx tsx twin.ts -p personas/customer.md -s shot1.png -s shot2.png -q "Would you sign up?"
-//   npx tsx twin.ts -p personas/legal.md -s shots/*.png        (no -q = chat mode)
+//   npx tsx twin.ts -p ../personas/customer.md -s shot1.png -s shot2.png -q "Would you sign up?"
+//   npx tsx twin.ts -p ../personas/legal.md -s shots/*.png        (no -q = chat mode)
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline/promises";
@@ -111,7 +111,7 @@ async function main() {
   });
   const shots = [...(values.shot ?? []), ...positionals];
   if (!values.persona || shots.length === 0) {
-    console.error('Usage: npx tsx twin.ts -p personas/customer.md -s a.png [-s b.png ...] [-q "question"]');
+    console.error('Usage: npx tsx twin.ts -p ../personas/customer.md -s a.png [-s b.png ...] [-q "question"]');
     process.exit(1);
   }
   if (shots.length > MAX_SHOTS) {
