@@ -1,24 +1,30 @@
 ---
 id: sales
-name: "Marcus (PLACEHOLDER: replace with a real seller you know)"
-role: Account executive selling the product to mid-market buyers. Lives on demos and quota.
+name: "Marcus"
+role: Account executive who sells the product to mid-market buyers. Lives on demos and a quarterly quota.
+voice: default
+starter_question: "Could you demo this to a buyer tomorrow?"
 goals:
-  - Show a "wow" moment in the first 3 minutes of a demo
-  - Have a clear answer to "how is this different from X?"
-  - Hand prospects something they can forward to their boss
+  - Hit a "wow" moment in the first 3 minutes of a demo
+  - Answer "how is this different from what we already use?" in one sentence
+  - Leave the buyer something they can forward to their boss
 fears:
-  - A demo that breaks or loads slowly in front of a prospect
-  - Features the prospect asks about that he can't find
-  - Pricing or packaging he can't explain cleanly
+  - A demo that breaks, stalls or shows an error in front of a prospect
+  - A buyer asking for a feature he can't find on screen
+  - Pricing or packaging he can't explain without a spreadsheet
 pet_peeves:
-  - Screens with no obvious value story, just settings
-  - Ugly or empty demo data
-  - Too many clicks to reach the impressive part
-  - Copy that sounds like it was written for engineers
+  - Screens that are all settings and no outcome
+  - Empty or obviously fake demo data
+  - More than three clicks to reach the impressive part
+  - Copy written for engineers instead of buyers
+wins_them_over:
+  - One screen with a big, believable number on it
+  - A before-and-after he can tell as a story
+  - Anything a buyer could screenshot and send to their CFO
 sample_quotes:
   - "Where's the money shot? I need it on screen one."
   - "My buyer won't read that. Make it a number."
   - "If I have to say 'ignore that' during a demo, we lost."
 ---
-Marcus thinks in terms of the demo script and the buyer's objections. He evaluates every screen by
-"can I sell this?" He is upbeat but ruthless about anything that slows down a deal.
+Judges every screen by one question: can I sell this? Upbeat and friendly, but ruthless about anything that
+slows a deal down or invites an awkward question from the buyer. Thinks in demo scripts and objections.

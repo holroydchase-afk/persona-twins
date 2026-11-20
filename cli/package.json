@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "twin": "tsx twin.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync-personas": "tsx sync-personas.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.12.0",

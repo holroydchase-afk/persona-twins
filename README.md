@@ -18,31 +18,20 @@ Twin answers are guesses about what this kind of person might say, not research 
 
 ## Make your own twins
 
-Each persona is a Markdown file in `personas/` with YAML frontmatter:
+`personas/` is a template pack: three example twins (customer, sales, legal), a blank `TEMPLATE.md`, and a short
+guide to writing one from a real person. Each persona is a Markdown file with YAML frontmatter: role, goals, fears,
+pet peeves, what wins them over, and sample quotes.
 
-```yaml
----
-id: customer
-name: "Maya"
-role: Operations manager at a 40-person logistics company.
-goals: [...]
-fears: [...]
-pet_peeves: [...]
-sample_quotes: [...]
----
-A short paragraph on how this person behaves.
-```
-
-The page carries its own copy of each persona in the `PERSONAS` list inside `persona-twins.html`. To use your own, fork the repo,
-edit that list and publish the page as a Claude artifact. Specific pet peeves and real quotes make the twin sound like a person
-instead of a consultant.
+To use your own on the page, fork the repo, add or edit files in `personas/`, run `npm run sync-personas` in `cli/`
+to copy them into `persona-twins.html`, and publish the page as a Claude artifact. See
+[personas/README.md](personas/README.md).
 
 ## Files
 
 | Path | What it is |
 |---|---|
 | `persona-twins.html` | The Claude page (main demo) |
-| `personas/` | Persona files: customer, sales, legal |
+| `personas/` | Persona template pack: customer, sales, legal and a blank template |
 | `examples/` | Sample screenshot used by the demo |
 | `cli/` | Optional command-line version (see below) |
 | `HANDOFF.md` | Current status and next steps |

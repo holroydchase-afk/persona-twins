@@ -17,7 +17,7 @@ const MEDIA: Record<string, "image/png" | "image/jpeg" | "image/webp" | "image/g
 
 type Persona = {
   id: string; name: string; role: string;
-  goals: string[]; fears: string[]; pet_peeves: string[]; sample_quotes: string[];
+  goals: string[]; fears: string[]; pet_peeves: string[]; sample_quotes: string[]; wins_them_over?: string[];
   background: string;
 };
 
@@ -51,7 +51,7 @@ ${list(p.fears)}
 
 Pet peeves:
 ${list(p.pet_peeves)}
-
+${p.wins_them_over ? `\nWhat wins you over:\n${list(p.wins_them_over)}\n` : ""}
 How you talk (match this voice, don't reuse these lines verbatim):
 ${list(p.sample_quotes)}
 
