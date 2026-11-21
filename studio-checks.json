@@ -1,0 +1,12 @@
+{
+  "logs": {
+    "roots": [
+      "cli"
+    ],
+    "banned": []
+  },
+  "agents": {
+    "verify": "cd cli && npm ci && npx tsc --noEmit",
+    "runs": 3
+  }
+}
