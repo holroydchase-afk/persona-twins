@@ -1,6 +1,6 @@
 # Persona Twins
 
-A Claude page where you show screenshots of your product to an AI customer, sales rep or lawyer and ask what they think.
+A Claude page where you show screenshots of your product to AI twins (an everyday user, paying customer, skeptic, marketer, sales rep, CFO or product lead) and ask what they think.
 `persona-twins.html` is the main demo (runs on the viewer's Claude account); `cli/` is an optional Node version that uses the Claude API.
 `HANDOFF.md` has the current state.
 

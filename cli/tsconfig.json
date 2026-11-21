@@ -7,5 +7,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["twin.ts", "sync-personas.ts"]
+  "include": ["twin.ts", "prompt.ts", "sync-personas.ts"]
 }

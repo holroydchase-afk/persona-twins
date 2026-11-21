@@ -1,26 +1,42 @@
 # Persona Twins
 
-A Claude page where you show screenshots of your product to an AI customer, sales rep or lawyer and ask what they think.
+A Claude page where you show screenshots of your product to an AI everyday user, paying customer, skeptic, marketer, sales rep, CFO or
+product lead and ask what they think.
 
 **Demo:** https://claude.ai/artifact/PUZwvGNNfsNYdbN57KKoFc. Runs on your own Claude account, with no API key or install.
 
 ## Use it
 
 1. Open the demo and sign in to Claude.
-2. Pick a persona: Maya (customer), Marcus (sales) or Elena (legal).
+2. Pick a persona. Rosa, the everyday user, is picked first because she is the one most likely to get stuck. See the table below.
 3. Add up to 5 screenshots. Drop, paste or pick PNG, JPG or WebP. An example signup screen is loaded to start.
 4. Ask a question, like "What would stop you signing up?" The first question asks you to let the page use Claude.
 
 The twin answers in character, bluntly, and quotes the on-screen element it's reacting to, like `[#2 "Start free trial" button]`.
+Every twin follows the same [review protocol](review-protocol.md): for each screenshot it asks itself four questions (would I know
+what to do here, can I see the control, do the words tell me it's the right one, would I know it worked), checks the words
+are plain and the controls look like the ones it already knows, and ends every objection with one fix in quotes.
 Answers are read aloud. You can change the voice or turn speaking off on the persona card. The mic button lets you speak your question.
 
 Twin answers are guesses about what this kind of person might say, not research data. Check anything important with a real person.
 
 ## Make your own twins
 
-`personas/` is a template pack: three example twins (customer, sales, legal), a blank `TEMPLATE.md`, and a short
-guide to writing one from a real person. Each persona is a Markdown file with YAML frontmatter: role, goals, fears,
-pet peeves, what wins them over, and sample quotes.
+`personas/` is a template pack: seven example twins, a blank `TEMPLATE.md`, and a short guide to writing one from a
+real person. All seven are fictional.
+
+| Twin | Who | Judges your product by |
+|---|---|---|
+| `everyday` | Rosa, non-technical, on her phone | Can I get it done first try, and would I know it worked? |
+| `customer` | Maya, the buyer who pays and renews | Is it worth the price, can I trust it, and can I leave? |
+| `skeptic` | Dana, who vets tools for her team | What's the catch, and do the screens back up the claims? |
+| `marketing` | Priya, head of marketing | Who is it for, and is the message clear? |
+| `sales` | Marcus, account executive | Can I demo this tomorrow and close? |
+| `finance` | Graham, a blunt CFO | What does it cost per year, and what does it save? |
+| `product` | Nadia, head of product | What's the one job, and how would you know it works? |
+
+Each persona is a Markdown file with YAML frontmatter: a picker label, role, goals, fears, pet peeves, what wins
+them over, and sample quotes.
 
 To use your own on the page, fork the repo, add or edit files in `personas/`, run `npm run sync-personas` in `cli/`
 to copy them into `persona-twins.html`, and publish the page as a Claude artifact. See
@@ -31,7 +47,8 @@ to copy them into `persona-twins.html`, and publish the page as a Claude artifac
 | Path | What it is |
 |---|---|
 | `persona-twins.html` | The Claude page (main demo) |
-| `personas/` | Persona template pack: customer, sales, legal and a blank template |
+| `personas/` | Persona template pack: seven example twins and a blank template |
+| `review-protocol.md` | How every twin reviews a screen (shared by the page and the CLI) |
 | `examples/` | Sample screenshot used by the demo |
 | `cli/` | Optional command-line version (see below) |
 | `HANDOFF.md` | Current status and next steps |
@@ -44,7 +61,7 @@ to copy them into `persona-twins.html`, and publish the page as a Claude artifac
 cd cli
 npm install
 export ANTHROPIC_API_KEY=sk-ant-...
-npx tsx twin.ts -p ../personas/legal.md -s ../examples/sample-signup.png -q "Would you approve this?"
+npx tsx twin.ts -p ../personas/finance.md -s ../examples/sample-signup.png -q "Would you pay for this?"
 ```
 
 Leave out `-q` to chat.

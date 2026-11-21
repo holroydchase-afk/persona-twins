@@ -1,7 +1,8 @@
 ---
-# Copy this file, rename it (e.g. finance.md) and fill it in from a real person you know.
+# Copy this file, rename it (e.g. support.md) and fill it in from a real person you know.
 id: your-persona-id            # short, lowercase, unique
 name: "First name"             # quote it if it contains a colon
+label: "First name (role)"     # what the page's picker shows, e.g. "Maya (paying customer)"
 role: Job title, company type and size, and their part in the buying decision.
 voice: default                 # page voice: default, airy, glassy, rounded or buttery (optional)
 starter_question: "The first question you'd ask this person about your product."   # optional

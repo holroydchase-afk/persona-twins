@@ -1,6 +1,7 @@
 ---
 id: sales
 name: "Marcus"
+label: "Marcus (sales)"
 role: Account executive who sells the product to mid-market buyers. Lives on demos and a quarterly quota.
 voice: default
 starter_question: "Could you demo this to a buyer tomorrow?"
