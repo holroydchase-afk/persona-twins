@@ -29,7 +29,7 @@ per screenshot in that check, cut the protocol to the four questions plus fixes 
 - **PTW-M2.1.2 CLI.** `twin.ts` reads `review-protocol.md` at runtime and appends it to `systemPrompt` after
   "How you review" (still byte-identical per run, so caching holds). Export `systemPrompt` and `loadPersona`
   (or move them to `cli/prompt.ts`) and run `main()` only when executed directly, so tests can import them.
-- **PTW-M2.1.3 Page.** `sync-personas.ts` also writes the file into `persona-twins.html` between
+- **PTW-M2.1.3 Page.** `sync-personas.ts` also writes the file into `stakeholder-twins.html` between
   `// PROTOCOL:BEGIN` / `// PROTOCOL:END` as `const REVIEW_PROTOCOL = <JSON string>;` (escape `</`), and `rules()`
   includes `${REVIEW_PROTOCOL}`. Replace the "a few sentences or a short list" line in both prompts so it no longer
   contradicts the per-screenshot walkthrough.

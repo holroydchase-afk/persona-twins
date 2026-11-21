@@ -38,6 +38,6 @@ the most work: keep them specific ("Pricing hidden behind 'Contact sales'"), not
 ## Using a new persona
 
 - **Command line:** `cd cli && npx tsx twin.ts -p ../personas/your-file.md -s screen.png`
-- **Claude page:** run `npm run sync-personas` in `cli/` to copy every file in this folder into `persona-twins.html`,
+- **Claude page:** run `npm run sync-personas` in `cli/` to copy every file in this folder into `stakeholder-twins.html`,
   then publish the page as a Claude artifact. The page lists twins in the order set in `cli/sync-personas.ts`; new
   ids go after the seven, alphabetically.

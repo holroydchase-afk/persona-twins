@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 export const cliDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const root = path.resolve(cliDir, "..");
 export const personasDir = path.join(root, "personas");
-export const pagePath = path.join(root, "persona-twins.html");
+export const pagePath = path.join(root, "stakeholder-twins.html");
 export const protocolPath = path.join(root, "review-protocol.md");
 export const everydayPath = path.join(personasDir, "everyday.md");
 const tsxBin = path.join(cliDir, "node_modules", ".bin", "tsx");
@@ -63,28 +63,28 @@ export function syncIntoTempCopy(): { dir: string; page: string; stdout: string 
   fs.copyFileSync(path.join(cliDir, "package.json"), path.join(dir, "cli", "package.json"));
   fs.symlinkSync(path.join(cliDir, "node_modules"), path.join(dir, "cli", "node_modules"), "dir");
   fs.cpSync(personasDir, path.join(dir, "personas"), { recursive: true });
-  fs.copyFileSync(pagePath, path.join(dir, "persona-twins.html"));
+  fs.copyFileSync(pagePath, path.join(dir, "stakeholder-twins.html"));
   if (fs.existsSync(protocolPath)) fs.copyFileSync(protocolPath, path.join(dir, "review-protocol.md"));
   const run = spawnSync(tsxBin, ["sync-personas.ts"], { cwd: path.join(dir, "cli"), encoding: "utf8", timeout: 30000 });
   assert.equal(run.status, 0, `sync-personas failed: ${run.stderr.trim()}`);
-  return { dir, page: fs.readFileSync(path.join(dir, "persona-twins.html"), "utf8"), stdout: run.stdout };
+  return { dir, page: fs.readFileSync(path.join(dir, "stakeholder-twins.html"), "utf8"), stdout: run.stdout };
 }
 
 export function pagePersonas(html: string): Array<{ id: string; [k: string]: unknown }> {
   const m = html.match(/\/\/ PERSONAS:BEGIN[^\n]*\n\s*const PERSONAS = ([\s\S]*?);\s*\n\/\/ PERSONAS:END/);
-  assert.ok(m, "persona-twins.html: PERSONAS block not found");
+  assert.ok(m, "stakeholder-twins.html: PERSONAS block not found");
   return JSON.parse(m[1]);
 }
 
 export function pageProtocol(html: string): string {
   const m = html.match(/\/\/ PROTOCOL:BEGIN[^\n]*\n\s*const REVIEW_PROTOCOL = ([\s\S]*?);\s*\n\/\/ PROTOCOL:END/);
-  assert.ok(m, "persona-twins.html: PROTOCOL:BEGIN/END block with `const REVIEW_PROTOCOL = ...;` not found");
+  assert.ok(m, "stakeholder-twins.html: PROTOCOL:BEGIN/END block with `const REVIEW_PROTOCOL = ...;` not found");
   return JSON.parse(m[1]);
 }
 
 export function pageRulesSource(html: string): string {
   const start = html.indexOf("function rules(p)");
-  assert.ok(start >= 0, "persona-twins.html: function rules(p) not found");
+  assert.ok(start >= 0, "stakeholder-twins.html: function rules(p) not found");
   const end = html.indexOf("\nfunction ", start + 1);
   return html.slice(start, end < 0 ? undefined : end);
 }

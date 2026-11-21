@@ -1,4 +1,4 @@
-# Persona Twins
+# Stakeholder Twins
 
 A Claude page where you show screenshots of your product to an AI everyday user, paying customer, skeptic, marketer, sales rep, CFO or
 product lead and ask what they think.
@@ -39,14 +39,14 @@ Each persona is a Markdown file with YAML frontmatter: a picker label, role, goa
 them over, and sample quotes.
 
 To use your own on the page, fork the repo, add or edit files in `personas/`, run `npm run sync-personas` in `cli/`
-to copy them into `persona-twins.html`, and publish the page as a Claude artifact. See
+to copy them into `stakeholder-twins.html`, and publish the page as a Claude artifact. See
 [personas/README.md](personas/README.md).
 
 ## Files
 
 | Path | What it is |
 |---|---|
-| `persona-twins.html` | The Claude page (main demo) |
+| `stakeholder-twins.html` | The Claude page (main demo) |
 | `personas/` | Persona template pack: seven example twins and a blank template |
 | `review-protocol.md` | How every twin reviews a screen (shared by the page and the CLI) |
 | `examples/` | Sample screenshot used by the demo |

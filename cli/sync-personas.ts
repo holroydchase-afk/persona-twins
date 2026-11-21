@@ -1,4 +1,4 @@
-// Copies every persona in ../personas into the PERSONAS list in ../persona-twins.html,
+// Copies every persona in ../personas into the PERSONAS list in ../stakeholder-twins.html,
 // and ../review-protocol.md into its REVIEW_PROTOCOL string.
 //   npm run sync-personas
 import fs from "node:fs";
@@ -7,7 +7,7 @@ import { parse as parseYaml } from "yaml";
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const dir = path.join(root, "personas");
-const page = path.join(root, "persona-twins.html");
+const page = path.join(root, "stakeholder-twins.html");
 const protocolFile = path.join(root, "review-protocol.md");
 const REQUIRED = ["name", "role", "goals", "fears", "pet_peeves", "sample_quotes"];
 
@@ -34,7 +34,7 @@ const js = (v: unknown, indent?: number) => JSON.stringify(v, null, indent).repl
 // Replace the text between two markers. A function replacer, so "$" in the content is never a pattern.
 function fill(html: string, name: string, body: string): string {
   const re = new RegExp(`(// ${name}:BEGIN[^\\n]*\\n)[\\s\\S]*?(\\n// ${name}:END)`);
-  if (!re.test(html)) throw new Error(`persona-twins.html: ${name}:BEGIN/END markers not found`);
+  if (!re.test(html)) throw new Error(`stakeholder-twins.html: ${name}:BEGIN/END markers not found`);
   return html.replace(re, (_m, begin: string, end: string) => begin + body + end);
 }
 
