@@ -56,6 +56,6 @@ story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use ea
 2. README with a one-line description, usage, MIT license and demo link. Done (PR #2, license name in PR #3).
 3. Sharpen the customer, sales and legal personas into a shareable template pack. Done (PR #4).
 4. Portfolio card line and LinkedIn line for Product Studio. Done: handed to Chase as a paste block (Nov 20).
-5. Add the studio review team: `.claude/agents/`, session rules, `agents-check` and `handoff-check`, CLAUDE.md. Done (PR #5, pending merge).
+5. Add the studio review team: `.claude/agents/`, session rules, `agents-check` and `handoff-check`, CLAUDE.md. Done (PR #5).
 6. Wrap the studio UX reviewer into every twin: review protocol, everyday twin first, roster everyday, customer,
    skeptic, marketing, sales, finance, product. **This PR.**
