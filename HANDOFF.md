@@ -3,11 +3,12 @@
 stage: building
 goal: portfolio
 milestone: Persona Twins v1
-now: UX reviewer wrapped into every twin; seven-twin roster (legal removed)
-next: Run ux-reviewer and privacy-security showcase review before the demo goes public
+now: Demo page restyled with the studio design system (Paper theme, Atkinson Hyperlegible Next)
+next: Add a portfolio back link and a what/who line (DS-R1, P0) before the demo goes public; then republish
 waiting_on_chase:
   - Share the demo page publicly (page Share menu)
   - Paste the step 4 lines into Product Studio
+  - Republish the demo page after the design system PR merges
 blockers: []
 -->
 
@@ -26,6 +27,10 @@ Last updated: 2026-11-21
   paying buyer), `skeptic.md` (Dana), `marketing.md` (Priya), `sales.md` (Marcus), `finance.md` (Graham, abrasive CFO),
   `product.md` (Nadia), plus `TEMPLATE.md` and a writing guide. The legal twin was removed. The page's `PERSONAS` list is
   generated from these files by `npm run sync-personas` in `cli/`; republish the page after syncing.
+- **Design system:** the page follows the studio design system from holroydchase-afk/hearth `docs/design/STUDIO-CORE.md`
+  and `tokens.json`: Paper theme (light, dark, and a high-contrast set derived with the section 3 recipe because hearth's
+  `themes.css` isn't on main yet), Atkinson Hyperlegible Next only, 17/22/28 type, 4pt space, 48px targets, a Theme
+  control (System, Light, Dark). Spec: `docs/specs/PTW-design-system.md`; tests: `cli/test/design-system.test.ts`.
 - **Review protocol:** `review-protocol.md` is the single source for how every twin reviews: the 4 cognitive-walkthrough
   questions per screenshot, plain-language and platform-pattern checks, and one exact fix per objection. The CLI
   (`cli/prompt.ts`) reads it at runtime; sync injects it into the page as `REVIEW_PROTOCOL`. Spec:
@@ -48,6 +53,13 @@ story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use ea
   so `agents-check` fails for agents that really ran. Chase's cloud setup-script line fixes it.
 - Not yet checked live: each twin's replies on a real screenshot (PTW-UX-9) and the everyday twin being selected in a
   fresh browser (PTW-UX-10). Needs the published page and a Claude account.
+- DS-R1 (P0 for going public, pre-existing): the page has no link back to the portfolio and no line saying what it is
+  and who it's for. Needs positioning copy; do it before sharing the demo.
+- Design P2s left: on a screenshot tile the Remove button wraps under "#1 Example", so caption heights differ; the
+  persona details block shows two dividers close together. Paper's rust accent sits near danger red, so errors also
+  carry a red edge line (DS-R2); whether to change the accent is a studio-level call.
+- `.claude/design-rules.md` allows 11px uppercase eyebrow labels, which STUDIO-CORE principle 1 forbids. Fix upstream
+  in studio-agents.
 - Voices repeat: customer and product are both airy; sales and finance both use the default voice.
 
 ## Plan
@@ -58,4 +70,5 @@ story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use ea
 4. Portfolio card line and LinkedIn line for Product Studio. Done: handed to Chase as a paste block (Nov 20).
 5. Add the studio review team: `.claude/agents/`, session rules, `agents-check` and `handoff-check`, CLAUDE.md. Done (PR #5).
 6. Wrap the studio UX reviewer into every twin: review protocol, everyday twin first, roster everyday, customer,
-   skeptic, marketing, sales, finance, product. **This PR.**
+   skeptic, marketing, sales, finance, product. Done (PR #6).
+7. Apply the studio design system to the demo page (PTW-M2.3). **This PR.**
