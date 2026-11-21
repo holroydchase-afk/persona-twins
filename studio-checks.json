@@ -6,7 +6,7 @@
     "banned": []
   },
   "agents": {
-    "verify": "cd cli && npm ci && npx tsc --noEmit",
+    "verify": "cd cli && npm ci && npx tsc --noEmit && npm test",
     "runs": 3
   }
 }
