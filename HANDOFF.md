@@ -4,7 +4,7 @@ stage: building
 goal: portfolio
 milestone: Persona Twins v1
 now: Demo page restyled with the studio design system (Paper theme, Atkinson Hyperlegible Next)
-next: Add a portfolio back link and a what/who line (DS-R1, P0) before the demo goes public; then republish
+next: Merge the design system PR, then the portfolio-link PR stacked on it; then republish the page
 waiting_on_chase:
   - Share the demo page publicly (page Share menu)
   - Paste the step 4 lines into Product Studio
@@ -53,8 +53,8 @@ story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use ea
   so `agents-check` fails for agents that really ran. Chase's cloud setup-script line fixes it.
 - Not yet checked live: each twin's replies on a real screenshot (PTW-UX-9) and the everyday twin being selected in a
   fresh browser (PTW-UX-10). Needs the published page and a Claude account.
-- DS-R1 (P0 for going public, pre-existing): the page has no link back to the portfolio and no line saying what it is
-  and who it's for. Needs positioning copy; do it before sharing the demo.
+- DS-R1 fixed in the stacked portfolio-link PR: "Back to portfolio" (https://chaseholroyd.com/) above the title, and the
+  tagline now says what it is and who it's for. The link wasn't opened from the build environment (host blocked).
 - Design P2s left: on a screenshot tile the Remove button wraps under "#1 Example", so caption heights differ; the
   persona details block shows two dividers close together. Paper's rust accent sits near danger red, so errors also
   carry a red edge line (DS-R2); whether to change the accent is a studio-level call.
@@ -71,4 +71,5 @@ story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use ea
 5. Add the studio review team: `.claude/agents/`, session rules, `agents-check` and `handoff-check`, CLAUDE.md. Done (PR #5).
 6. Wrap the studio UX reviewer into every twin: review protocol, everyday twin first, roster everyday, customer,
    skeptic, marketing, sales, finance, product. Done (PR #6).
-7. Apply the studio design system to the demo page (PTW-M2.3). **This PR.**
+7. Apply the studio design system to the demo page (PTW-M2.3). PR #8.
+8. Portfolio link and what/who line (DS-R1), stacked on PR #8. **This PR.**
