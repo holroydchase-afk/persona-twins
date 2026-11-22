@@ -717,3 +717,102 @@ test('AC-DS-R7 buttons are words only: no 🎙, ■ or ▶; "Speak", "Stop voice
     [/<button\b[^>]*class=["']speak["'][^>]*>\s*Play again\s*<\/button>/, '.speak says "Play again"'],
   ] as const) assert.match(src, re, label);
 });
+
+// ============================================================================================
+// ux-reviewer finding DS-R1 (P0 before the demo goes public, approved by Chase): a link back to the
+// portfolio and a what/who line in the header. AC-DS-2 (type tokens only) and AC-DS-14 (title/h1
+// unchanged) still apply; AC-DS-R1 also checks the link and .tag carry no inline font-size.
+// ============================================================================================
+
+const PORTFOLIO_URL = "https://chaseholroyd.com/";
+const TAG_TEXT = "For product builders: show your screens to AI stand-ins for users and stakeholders and hear what they might say.";
+const textOf = (s: string) => s.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+
+test('AC-DS-R1 header has a "Back to portfolio" link (48 target, accent) before the h1, and the what/who .tag line', () => {
+  const html = pageHtml();
+  const header = html.match(/<header\b[^>]*>([\s\S]*?)<\/header>/i)?.[1];
+  assert.ok(header, "page has no <header>");
+
+  // The link: exact href, exact visible text, before the <h1>.
+  const anchors = [...header.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)];
+  const link = anchors.find((m) => m[1].match(/\bhref\s*=\s*["']([^"']*)["']/i)?.[1] === PORTFOLIO_URL);
+  assert.ok(link, `<header> has no <a href="${PORTFOLIO_URL}">; header anchors: ${anchors.map((m) => m[0]).join(" | ") || "none"}`);
+  assert.equal(textOf(link[2]), "Back to portfolio", "portfolio link text");
+  const h1At = header.search(/<h1\b/i);
+  assert.ok(h1At >= 0, "<header> has no <h1>");
+  assert.ok(link.index! < h1At, "the portfolio link comes after the <h1>; it belongs before it");
+  assert.doesNotMatch(link[1], /\bstyle\s*=/i, "the portfolio link has an inline style (AC-DS-2: sizes come from tokens in <style>)");
+
+  // Its CSS: 48 target, centered inline-flex/flex, accent color. Selector by class, id, or header a.
+  const rules = pageRules().filter((r) => !r.keyframes && r.media.length === 0);
+  const cls = link[1].match(/\bclass\s*=\s*["']([^"']+)["']/i)?.[1].split(/\s+/).filter(Boolean) ?? [];
+  const id = link[1].match(/\bid\s*=\s*["']([^"']+)["']/i)?.[1];
+  const sels = ["a", "header a", ...cls.map((c) => "." + c), ...(id ? ["#" + id] : [])];
+  const linkRules = [...new Set(sels.flatMap((s) => rulesFor(rules, s)))].sort((a, b) => a.order - b.order);
+  const get = (prop: string) => linkRules.flatMap((r) => r.decls).filter(([p]) => p === prop).pop()?.[1];
+  const vars = lightRoot();
+  const target = tokensWhere(vars, (_n, px) => px === 48);
+  const mh = get("min-height");
+  assert.ok(mh && /^var\(\s*(--[\w-]+)\s*\)$/.test(mh.trim()) && target.has(mh.trim().match(/--[\w-]+/)![0]),
+    `portfolio link min-height is ${mh ?? "(not set)"}, expected the 48 target token (var(--target))`);
+  assert.match(flat(get("display")), /^(inline-flex|flex)$/, `portfolio link display is ${get("display") ?? "(not set)"}`);
+  assert.equal(flat(get("align-items")), "center", `portfolio link align-items is ${get("align-items") ?? "(not set)"}`);
+  assert.equal(get("color")?.replace(/\s/g, ""), "var(--accent)", `portfolio link color is ${get("color") ?? "(not set)"}`);
+
+  // The what/who line replaces the old tagline.
+  const tags = [...header.matchAll(/<([a-z]+)\b([^>]*\bclass\s*=\s*["'][^"']*\btag\b[^"']*["'][^>]*)>([\s\S]*?)<\/\1>/gi)];
+  assert.equal(tags.length, 1, `expected one .tag in <header>, found ${tags.length}`);
+  assert.equal(textOf(tags[0][3]), TAG_TEXT, ".tag text");
+  assert.doesNotMatch(tags[0][2], /\bstyle\s*=/i, ".tag has an inline style (AC-DS-2: sizes come from tokens in <style>)");
+  assert.doesNotMatch(html, /pick a persona · show your screens · ask/, "the old tagline is still on the page");
+});
+
+// ============================================================================================
+// ux-reviewer P2s on the portfolio link (AC-DS-R9, R11, R12).
+// ============================================================================================
+
+function headerInner(html = pageHtml()): string {
+  const header = html.match(/<header\b[^>]*>([\s\S]*?)<\/header>/i)?.[1];
+  assert.ok(header, "page has no <header>");
+  return header;
+}
+const hasClass = (tag: string, c: string) =>
+  new RegExp(`\\bclass\\s*=\\s*["'][^"']*(?<![\\w-])${c}(?![\\w-])[^"']*["']`, "i").test(tag);
+const isPortfolioLink = (tag: string) =>
+  /^<a\b/i.test(tag) && tag.match(/\bhref\s*=\s*["']([^"']*)["']/i)?.[1] === PORTFOLIO_URL;
+
+test("AC-DS-R9 the back link is not inside .title; its row is a direct child of <header> before .title; header aligns flex-start", () => {
+  const header = headerInner();
+  const at = ancestorsAt(header, /^<a\b[^>]*\bhref\s*=\s*["']https:\/\/chaseholroyd\.com\/["']/i);
+  assert.ok(at, `<header> has no <a href="${PORTFOLIO_URL}">`);
+  const inTitle = at.stack.find((t) => hasClass(t, "title"));
+  assert.equal(inTitle, undefined, `the back link is inside .title (${inTitle}); move its row out, before .title`);
+  assert.equal(at.stack.length, 1,
+    `the back link's row should be a direct child of <header>; ancestors inside <header>: ${at.stack.join(" > ") || "none (link is bare)"}`);
+
+  // Row comes before the .title element, both as <header> children.
+  const rowAt = header.indexOf(at.stack[0]);
+  const titleAt = [...header.matchAll(/<[a-z][\w-]*\b[^>]*>/gi)].find((m) => hasClass(m[0], "title"))?.index;
+  assert.ok(titleAt !== undefined, "<header> has no .title element");
+  assert.ok(rowAt < titleAt, "the back link's row comes after .title; it belongs before it");
+
+  const rules = pageRules().filter((r) => !r.keyframes);
+  const align = lastDecl(rules, "header", "align-items");
+  assert.equal(flat(align), "flex-start", `header align-items is ${align ?? "(not set)"}, expected flex-start`);
+});
+
+test("AC-DS-R11 the .tag rule sets text-wrap: pretty", () => {
+  const rules = pageRules().filter((r) => !r.keyframes);
+  const tw = lastDecl(rules, ".tag", "text-wrap");
+  assert.equal(flat(tw), "pretty", `.tag text-wrap is ${tw ?? "(not set)"}, expected pretty`);
+});
+
+test('AC-DS-R12 the back link opens outside the sandboxed frame: target="_blank", rel has noopener', () => {
+  const header = headerInner();
+  const link = [...header.matchAll(/<a\b[^>]*>/gi)].map((m) => m[0]).find(isPortfolioLink);
+  assert.ok(link, `<header> has no <a href="${PORTFOLIO_URL}">`);
+  const target = link.match(/\btarget\s*=\s*["']([^"']*)["']/i)?.[1];
+  assert.equal(target, "_blank", `back link target is ${target ?? "(not set)"}, expected _blank`);
+  const rel = link.match(/\brel\s*=\s*["']([^"']*)["']/i)?.[1];
+  assert.ok(rel && rel.toLowerCase().split(/\s+/).includes("noopener"), `back link rel is ${rel ?? "(not set)"}, expected it to include noopener`);
+});
