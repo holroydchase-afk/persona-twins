@@ -1,6 +1,6 @@
 # PTW-M2.3: Apply the studio design system to the demo page
 
-Status: todo. One PR, `persona-twins.html` only (plus its test file, HANDOFF.md and the agent-run log).
+Status: todo. One PR, `stakeholder-twins.html` only (plus its test file, HANDOFF.md and the agent-run log).
 Source: hearth `docs/design/STUDIO-CORE.md` (sections 2-7) and `docs/design/tokens.json` (`themes.paper`).
 Chase: "use Atkinson Hyperlegible Next, copy the type/space/radius values as-is, use one of the shared themes
 (Paper by default) ... run the checklist in section 7. Ask me before changing any of the section 2 principles."

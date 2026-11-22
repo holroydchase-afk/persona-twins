@@ -27,7 +27,7 @@ function protocolMustSay(...phrases: string[]) {
 // Extracts a top-level function (declaration or `const x = ...` with a braced body) from the page's inline script.
 function pageFunction(html: string, name: string): string {
   const m = html.match(new RegExp(`(?:function\\s+${name}\\s*\\(|(?:const|let|var)\\s+${name}\\s*=)`));
-  assert.ok(m && m.index !== undefined, `persona-twins.html: no function ${name} in the inline script`);
+  assert.ok(m && m.index !== undefined, `stakeholder-twins.html: no function ${name} in the inline script`);
   const open = html.indexOf("{", m.index);
   let depth = 0, i = open;
   for (; i < html.length; i++) {
@@ -146,5 +146,5 @@ test("AC-UX-R8 finance persona doesn't say \"stop talking\"", () => {
 
 test("AC-UX-R9 page has no Participant or Session transcript text", () => {
   const html = fs.readFileSync(pagePath, "utf8");
-  for (const s of ["Participant", "Session transcript"]) assert.ok(!html.includes(s), `persona-twins.html still says "${s}"`);
+  for (const s of ["Participant", "Session transcript"]) assert.ok(!html.includes(s), `stakeholder-twins.html still says "${s}"`);
 });

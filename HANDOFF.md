@@ -2,13 +2,13 @@
 <!-- status
 stage: building
 goal: portfolio
-milestone: Persona Twins v1
-now: Demo page restyled with the studio design system (Paper theme, Atkinson Hyperlegible Next)
-next: Merge the design system PR, then the portfolio-link PR stacked on it; then republish the page
+milestone: Stakeholder Twins v1
+now: Renamed to Stakeholder Twins, on top of the design system restyle (PRs #8, #9 merged)
+next: Republish the page; run ux-reviewer and privacy-security showcase review before the demo goes public
 waiting_on_chase:
   - Share the demo page publicly (page Share menu)
-  - Paste the step 4 lines into Product Studio
-  - Republish the demo page after the design system PR merges
+  - Paste the Stakeholder Twins INTAKE block into Product Studio
+  - Rename the GitHub repo to stakeholder-twins (Settings)
 blockers: []
 -->
 
@@ -18,7 +18,8 @@ Last updated: 2026-11-21
 
 ## Where things stand
 
-- **Main demo:** `persona-twins.html`, published as a Claude page at
+- **Name:** renamed from Persona Twins on 2026-11-21 (Chase's call; the old name was redundant). GitHub repo rename to holroydchase-afk/stakeholder-twins is Chase's one step in repo Settings.
+- **Main demo:** `stakeholder-twins.html`, published as a Claude page at
   https://claude.ai/artifact/PUZwvGNNfsNYdbN57KKoFc. Runs on the viewer's Claude account (`sample` capability
   with images, `tts` for voice, `dictation` for the mic). No API key.
 - **Docs:** README with usage and persona format; MIT license, copyright Chase Holroyd.
