@@ -3,7 +3,7 @@
 stage: building
 goal: portfolio
 milestone: Stakeholder Twins v1
-now: Renamed to Stakeholder Twins, on top of the design system restyle (PRs #8, #9 merged)
+now: Wired to the latest studio-agents (agent-prompt fallback, qa-tdd can't be skipped on code PRs, thread opening)
 next: Republish the page; run ux-reviewer and privacy-security showcase review before the demo goes public
 waiting_on_chase:
   - Share the demo page publicly (page Share menu)
@@ -14,7 +14,7 @@ blockers: []
 
 Studio-wide status: https://github.com/holroydchase-afk/pm-tools/blob/main/STUDIO-STATUS.md
 
-Last updated: 2026-11-21
+Last updated: 2026-11-22
 
 ## Where things stand
 
@@ -40,7 +40,7 @@ Last updated: 2026-11-21
 ## Studio review team
 
 Studio agents in `.claude/agents/` (staff-pm, qa-tdd, engineer, ux-reviewer, privacy-security, architect, positioning,
-story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use each. PRs need an `Agents:` line
+story-keeper, release-captain) from holroydchase-afk/studio-agents. CLAUDE.md says when to use each. PRs need an `Agents:` line
 (`agents-check`) and a HANDOFF.md update (`handoff-check`).
 
 ## Known issues
@@ -50,8 +50,9 @@ story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use ea
 - `node scripts/check-logs.mjs` reports 3 log-hygiene findings in `cli/twin.ts` (token counts under TWIN_DEBUG at line 50; raw error message and object at line 106). Not wired into CI yet; fix test-first in the next code PR.
 - Nobody has run the CLI end to end yet (no API key in the build environment).
 - The demo page was republished from this branch (version 8) before merge, so it already shows the seven twins.
-- PRs in this cloud session have no `.claude/agent-runs` log: the hook runs only when the session starts in this repo,
-  so `agents-check` fails for agents that really ran. Chase's cloud setup-script line fixes it.
+- Cloud project threads can't fire the agent-run hook, so studio agents run there as general-purpose with the prompt
+  from `bash scripts/agent-prompt.sh <agent> "<task>"` and log themselves with `scripts/log-agent-run.sh --as <agent>`
+  (`check-agent-runs.sh` accepts those `via-general-purpose` lines). Wired in PTW-M3.1; PRs before it had red agent-log checks.
 - Not yet checked live: each twin's replies on a real screenshot (PTW-UX-9) and the everyday twin being selected in a
   fresh browser (PTW-UX-10). Needs the published page and a Claude account.
 - DS-R1 fixed in the stacked portfolio-link PR: "Back to portfolio" (https://chaseholroyd.com/) above the title, and the
@@ -73,4 +74,6 @@ story-keeper) from holroydchase-afk/studio-agents. CLAUDE.md says when to use ea
 6. Wrap the studio UX reviewer into every twin: review protocol, everyday twin first, roster everyday, customer,
    skeptic, marketing, sales, finance, product. Done (PR #6).
 7. Apply the studio design system to the demo page (PTW-M2.3). PR #8.
-8. Portfolio link and what/who line (DS-R1), stacked on PR #8. **This PR.**
+8. Portfolio link and what/who line (DS-R1), stacked on PR #8. Done (PR #9).
+9. Wire to the latest studio-agents (PTW-M3.1, spec `docs/specs/PTW-studio-wiring.md`): `scripts/agent-prompt.sh`, the
+   `--as` run log, the "qa-tdd cannot be skipped" check, the new CLAUDE.md agents section. **This PR.**
