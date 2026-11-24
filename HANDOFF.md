@@ -77,3 +77,6 @@ story-keeper, release-captain) from holroydchase-afk/studio-agents. CLAUDE.md sa
 8. Portfolio link and what/who line (DS-R1), stacked on PR #8. Done (PR #9).
 9. Wire to the latest studio-agents (PTW-M3.1, spec `docs/specs/PTW-studio-wiring.md`): `scripts/agent-prompt.sh`, the
    `--as` run log, the "qa-tdd cannot be skipped" check, the new CLAUDE.md agents section. **This PR.**
+
+## Done
+- Community files (2026-11-24, Chase: will engineers see an amateur repo): added CONTRIBUTING, CODE_OF_CONDUCT, issue templates and a PR template (plus SECURITY.md where missing), per `studio-agents` docs/repo-standards.md. Next: set the repo description and topics in GitHub settings, add a CI badge.
