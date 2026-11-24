@@ -31,7 +31,7 @@ real person. All seven are fictional.
 | `customer` | Maya, the buyer who pays and renews | Is it worth the price, can I trust it, and can I leave? |
 | `skeptic` | Dana, who vets tools for her team | What's the catch, and do the screens back up the claims? |
 | `marketing` | Priya, head of marketing | Who is it for, and is the message clear? |
-| `sales` | Marcus, account executive | Can I demo this tomorrow and close? |
+| `sales` | Owen, account executive | Can I demo this tomorrow and close? |
 | `finance` | Graham, a blunt CFO | What does it cost per year, and what does it save? |
 | `product` | Nadia, head of product | What's the one job, and how would you know it works? |
 
@@ -42,12 +42,28 @@ To use your own on the page, fork the repo, add or edit files in `personas/`, ru
 to copy them into `stakeholder-twins.html`, and publish the page as a Claude artifact. See
 [personas/README.md](personas/README.md).
 
+## Audience pack
+
+`personas/audience/` holds five fictional twins for the people who read a portfolio before anyone replies: `hiring-manager`
+(Helen, five minutes, wants proof), `recruiter-skim` (Tomas, thirty seconds, matches a role), `staff-engineer` (Priyanka,
+opens the repo and checks the code, tests and repository basics), `pm-peer` (Owen, would I use it Monday?) and
+`linkedin-scroller` (Jada, two seconds in a feed). Each carries `influence` and `interest` tags. They are not on the page's picker.
+
+- **Install:** `personas/audience.json` is the file to copy or fetch. It holds all twelve personas, both review protocols
+  and a content hash. Run `npm run sync-personas` in `cli/` after editing any persona to regenerate it.
+- **Use:** `agentPrompt(persona, "screenshot" | "text")` in `cli/prompt.ts` asks for findings as JSON lines whose format a checker
+  can validate (the format, not whether a finding is right); `systemPrompt` is still the in-character voice the page uses. Text, code and posts use `review-protocol-text.md`.
+
+Twin output is hypotheses, not research: guesses to check against real readers, never validation or approval.
+
 ## Files
 
 | Path | What it is |
 |---|---|
 | `stakeholder-twins.html` | The Claude page (main demo) |
 | `personas/` | Persona template pack: seven example twins and a blank template |
+| `personas/audience/`, `personas/audience.json` | Five audience twins and the generated file other tools read |
+| `review-protocol-text.md` | The same review rules for text, code and posts |
 | `review-protocol.md` | How every twin reviews a screen (shared by the page and the CLI) |
 | `examples/` | Sample screenshot used by the demo |
 | `cli/` | Optional command-line version (see below) |

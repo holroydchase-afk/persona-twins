@@ -1,0 +1,5 @@
+export type Persona = {
+  id: string; name: string; label?: string; role: string;
+  goals: string[]; fears: string[]; pet_peeves: string[]; sample_quotes: string[]; wins_them_over?: string[];
+  background: string;
+};

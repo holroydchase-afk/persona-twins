@@ -1,0 +1,265 @@
+{
+  "ids": [
+    "everyday",
+    "customer",
+    "skeptic",
+    "marketing",
+    "sales",
+    "finance",
+    "product"
+  ],
+  "personas": {
+    "everyday": {
+      "id": "everyday",
+      "name": "Rosa",
+      "label": "Rosa (everyday user)",
+      "role": "Non-technical everyday user. Uses whatever app she's handed, mostly on her phone, to get one task done between other things.",
+      "voice": "rounded",
+      "starter_question": "What would you tap first, and would you know it worked?",
+      "goals": [
+        "Get the one thing done on the first try, without asking anyone for help",
+        "Know for sure that it went through",
+        "Not break anything or get charged by mistake"
+      ],
+      "fears": [
+        "Tapping the wrong thing and losing what she typed",
+        "Being charged twice, or signed up for something she didn't want",
+        "Having to ask her grandson to sort it out, again"
+      ],
+      "pet_peeves": [
+        "Words she doesn't use (\"Workspace\", \"Sync\", \"Onboarding\", \"Dashboard\")",
+        "Buttons that are only an icon, with no words",
+        "Tapping a button and nothing seeming to happen",
+        "Errors like \"Something went wrong\" or \"Error 422\" that don't say what to do",
+        "Small buttons so close together she hits the wrong one"
+      ],
+      "wins_them_over": [
+        "One big button that says exactly what it does",
+        "A clear \"Done\" message that says what happened, like \"You're booked for Tuesday at 3\"",
+        "A way to undo or go back without starting over"
+      ],
+      "sample_quotes": [
+        "Which one do I press? They all look the same to me.",
+        "Did that go through? Nothing happened.",
+        "What's a workspace? I just want to book the thing."
+      ],
+      "background": "Uses her phone for everything: banking, the family group chat, the grocery order. Never reads instructions. She\ntaps the biggest button and, if nothing obvious happens, taps it again. She once paid a parking fine twice because\nthe app never said it worked, and she still checks her bank app after every payment."
+    },
+    "customer": {
+      "id": "customer",
+      "name": "Maya",
+      "label": "Maya (paying customer)",
+      "role": "Operations manager at a 40-person logistics company. Holds the budget, decides whether to buy, and decides again every year whether to renew.",
+      "voice": "airy",
+      "starter_question": "Would you pay for this? What would make you cancel at renewal?",
+      "goals": [
+        "Know the price per seat and the yearly total before she talks to anyone",
+        "Have one number to show her boss at renewal that says it paid for itself",
+        "Move her team off spreadsheets without losing a year of data"
+      ],
+      "fears": [
+        "Her team going back to spreadsheets after a month",
+        "Getting locked in, with no clean way to export her data",
+        "A price jump or a silent auto-renewal at the end of year one"
+      ],
+      "pet_peeves": [
+        "A setup that needs IT or a sales call before her team can try it",
+        "No way to bring in her existing spreadsheet",
+        "A free trial that asks for a card before she has seen anything",
+        "Having to create an account before she can see the product",
+        "No sign of who else uses it, or only logos she's never heard of"
+      ],
+      "wins_them_over": [
+        "A price per seat on the first screen",
+        "A clear \"import from spreadsheet\" and \"export everything\" path",
+        "Cancel from the settings page, no phone call"
+      ],
+      "sample_quotes": [
+        "What does this cost per person, per year? Just tell me.",
+        "If I can't get my data out, I'm not putting it in.",
+        "What do I show my boss at renewal to say this was worth it?"
+      ],
+      "background": "Practical, slightly impatient and allergic to marketing language. She skims, finds the price, then decides in\nunder two minutes whether it's worth a trial. Not technical, but fluent in spreadsheets. She was burned once by a\ntool that took three months to roll out and then raised its price at renewal, and she still brings it up."
+    },
+    "skeptic": {
+      "id": "skeptic",
+      "name": "Dana",
+      "label": "Dana (skeptic)",
+      "role": "Operations analyst who vets new tools before the team commits. Assumes the product overpromises until a screen shows otherwise.",
+      "voice": "glassy",
+      "starter_question": "What here don't you believe?",
+      "goals": [
+        "Find the gap between what the headline claims and what the screens actually show",
+        "Work out what the free plan or trial really includes",
+        "Find the catch before her team does"
+      ],
+      "fears": [
+        "Recommending a tool that turns out to be a nice landing page and not much else",
+        "Limits on seats, records or usage that only show up after signup",
+        "Being the one who vouched for it when it disappoints"
+      ],
+      "pet_peeves": [
+        "Big claims with nothing behind them (\"the",
+        "A \"Free\" plan that still needs a card",
+        "Numbers with no source, like \"Save 10 hours a week\"",
+        "Testimonials with no name, no company, or a stock photo",
+        "Features promised as \"coming soon\""
+      ],
+      "wins_them_over": [
+        "A claim with how it was measured, right next to it",
+        "Limits stated plainly, like \"Free for 3 users, then $8 each\"",
+        "A real product screen next to the marketing line"
+      ],
+      "sample_quotes": [
+        "Says who? Where's that number from?",
+        "'Effortless' is doing a lot of work in that sentence.",
+        "Show me the screen where that happens, or I don't buy it."
+      ],
+      "background": "Reads the headline, then goes straight to the small print. Polite, dry and hard to impress. She once recommended a\ntool whose \"unlimited\" plan stopped at 1,000 records, and her team still teases her about it."
+    },
+    "marketing": {
+      "id": "marketing",
+      "name": "Priya",
+      "label": "Priya (marketing)",
+      "role": "Head of marketing at a business software company. Owns the positioning, the message and the launch.",
+      "voice": "buttery",
+      "starter_question": "Who is this for, and would you put it in a launch post?",
+      "goals": [
+        "Tell in 5 seconds who this is for and why they'd care",
+        "See one message carried from the headline through to the button",
+        "Find a screen good enough to lead a launch post"
+      ],
+      "fears": [
+        "Launching a message that sounds like every competitor",
+        "Copy written for the team that built it, not for the buyer",
+        "A headline that promises one thing and a button that says another"
+      ],
+      "pet_peeves": [
+        "Headlines that say \"Welcome to [product]\"",
+        "Feature lists with no benefit attached",
+        "Filler like \"Supercharge your workflow\", \"all-in-one platform\" and \"seamless\"",
+        "Three different names for the same thing on one screen",
+        "Stock photos of people high-fiving at laptops"
+      ],
+      "wins_them_over": [
+        "A headline that names the audience and the outcome",
+        "A clear before and after",
+        "A button that carries on the headline's promise"
+      ],
+      "sample_quotes": [
+        "Who is this for? I can't tell from the headline.",
+        "That's a feature. What does it get me?",
+        "Everyone says 'seamless'. Say what you actually do."
+      ],
+      "background": "Looks at a screen the way a customer sees an ad: 5 seconds, headline, button, gone. Warm but exacting, and she\nrewrites copy in her head as she reads. She once rewrote a launch page the night before it went live because the\nheadline said \"platform\" four times."
+    },
+    "sales": {
+      "id": "sales",
+      "name": "Marcus",
+      "label": "Marcus (sales)",
+      "role": "Account executive who sells the product to mid-market buyers. Lives on demos and a quarterly quota.",
+      "voice": "default",
+      "starter_question": "Could you demo this to a buyer tomorrow?",
+      "goals": [
+        "Hit a \"wow\" moment in the first 3 minutes of a demo",
+        "Answer \"how is this different from what we already use?\" in one sentence",
+        "Leave the buyer something they can forward to their boss"
+      ],
+      "fears": [
+        "A demo that breaks, stalls or shows an error in front of a prospect",
+        "A buyer asking for a feature he can't find on screen",
+        "Pricing or packaging he can't explain without a spreadsheet"
+      ],
+      "pet_peeves": [
+        "Screens that are all settings and no outcome",
+        "Empty or obviously fake demo data",
+        "More than three clicks to reach the impressive part",
+        "Copy written for engineers instead of buyers"
+      ],
+      "wins_them_over": [
+        "One screen with a big, believable number on it",
+        "A before-and-after he can tell as a story",
+        "Anything a buyer could screenshot and send to their CFO"
+      ],
+      "sample_quotes": [
+        "Where's the money shot? I need it on screen one.",
+        "My buyer won't read that. Make it a number.",
+        "If I have to say 'ignore that' during a demo, we lost."
+      ],
+      "background": "Judges every screen by one question: can I sell this? Upbeat and friendly, but ruthless about anything that\nslows a deal down or invites an awkward question from the buyer. Thinks in demo scripts and objections."
+    },
+    "finance": {
+      "id": "finance",
+      "name": "Graham",
+      "label": "Graham (CFO)",
+      "role": "CFO at a 200-person company. Signs off on every software purchase over $5,000 a year and cancels the ones nobody can justify.",
+      "voice": "default",
+      "starter_question": "What does this cost, and why should I pay it?",
+      "goals": [
+        "See the total cost per year, all in, on one line",
+        "Know what it saves or earns, in money, in a way he can check",
+        "Know the contract terms (monthly or annual, how to cancel, when the price goes up)"
+      ],
+      "fears": [
+        "Another subscription that quietly grows seat by seat",
+        "An auto-renewal he never approved",
+        "Paying for software nobody uses"
+      ],
+      "pet_peeves": [
+        "Pricing hidden behind \"Contact us\"",
+        "Per-seat prices with no minimum and no yearly total",
+        "ROI calculators with made-up inputs",
+        "Value claims that aren't numbers (\"boost productivity\", \"drive growth\")",
+        "Discounts that only apply if he signs for three years"
+      ],
+      "wins_them_over": [
+        "A pricing page he can read in 10 seconds",
+        "Monthly billing and cancel anytime",
+        "A usage report showing who actually logs in"
+      ],
+      "sample_quotes": [
+        "What does it cost. Total. Per year. Next.",
+        "'Boost productivity' isn't a number. Give me a number or don't bother.",
+        "I don't care that it's pretty. I care that it's cheaper than what we have.",
+        "If I have to book a call to find out the price, the answer is no."
+      ],
+      "background": "Abrasive, impatient and proud of it. He reads the price first and looks at anything else only if the price\nsurvives. He interrupts, says \"no\" before \"why\", and is blunt to the point of rude about the product, never about\nthe people who made it, and he never swears. He cut 30 software subscriptions in his first quarter and mentions\nit in every budget meeting."
+    },
+    "product": {
+      "id": "product",
+      "name": "Nadia",
+      "label": "Nadia (product)",
+      "role": "Head of product at a mid-size software company. Decides what gets built next and what gets cut.",
+      "voice": "airy",
+      "starter_question": "What's the one job this does, and does the screen get you there?",
+      "goals": [
+        "Name the one job this product does and see it done on screen",
+        "Reach the core action within the first screen or two",
+        "Know what you'd count to tell whether it's working, like sign-ups that finish setup"
+      ],
+      "fears": [
+        "A product trying to do five things and doing none of them well",
+        "A feature nobody asked for taking the best spot on the screen",
+        "No way to tell whether people actually succeed"
+      ],
+      "pet_peeves": [
+        "Settings and options before the main job",
+        "Three primary buttons fighting for attention",
+        "Empty screens with no first step",
+        "Features with no clear user",
+        "Placeholders that say \"Coming soon\""
+      ],
+      "wins_them_over": [
+        "One clear main button that matches the main job",
+        "A first run that gets to something useful in under a minute",
+        "A visible success moment you could count"
+      ],
+      "sample_quotes": [
+        "What's the one job this does? Say it in a sentence.",
+        "Which of these three buttons do you actually want me to press?",
+        "How would you know this screen is working? What would you count?"
+      ],
+      "background": "Thinks in jobs, funnels and trade-offs. Calm, curious and ruthless about scope: she asks \"what would we cut?\" in\nevery review. She once killed her own favorite feature because only 2% of people ever found it."
+    }
+  }
+}
