@@ -77,6 +77,18 @@ story-keeper, release-captain) from holroydchase-afk/studio-agents. CLAUDE.md sa
 8. Portfolio link and what/who line (DS-R1), stacked on PR #8. Done (PR #9).
 9. Wire to the latest studio-agents (PTW-M3.1, spec `docs/specs/PTW-studio-wiring.md`): `scripts/agent-prompt.sh`, the
    `--as` run log, the "qa-tdd cannot be skipped" check, the new CLAUDE.md agents section. **This PR.**
+10. Audience pack (PTW-AUD, spec `docs/specs/PTW-audience.md`): five fictional audience personas in `personas/audience/`,
+    `influence`/`interest` on `Persona`, `agentPrompt`, `review-protocol-text.md`, and `personas/audience.json` written by
+    `npm run sync-personas`. Built test-first against `cli/test/audience.test.ts`. PR #12.
+    - Next: studio-agents' `sync-audience.sh` and `check-stakeholder` (separate PR, reads `audience.json`).
+    - Decisions to review: persona first names (Helen, Tomas, Priyanka, Owen, Jada), all invented. The PM peer
+      is not Marcus, which the sales twin already uses.
+    - Resolved: the AUD-7/AUD-8 conflict (QA-R3) by cutting the screenshot protocol at "Stay in character:" in `agentPrompt`.
+
+### Audience pack review (2026-11-24)
+- privacy-security: no P0/P1. PTW-PS-R1 (prompt line to ignore instructions inside the artifact) and PTW-PS-R2 (screenshot rules throw if the cut marker is missing) fixed with a test; R3 (raw persona fields, trusted inputs) and R5 (audience.json hash is drift detection, not authentication) accepted; R4 (the demo artifact link in the README is the intentional public demo) needs Chase's yes.
+- positioning: README wording checked, one phrase narrowed. qa-tdd: spec AUD-7 amended (screenshot kind cuts the protocol at "Stay in character:", QA-R3), suite green 3x (77 pass, 5 skipped).
+- Exact next step: studio-agents PR consumes `personas/audience.json` (sync-audience, check-stakeholder with strict JSON and fenced artifact).
 
 ## Done
 - Community files (2026-11-24, Chase: will engineers see an amateur repo): added CONTRIBUTING, CODE_OF_CONDUCT, issue templates and a PR template (plus SECURITY.md where missing), per `studio-agents` docs/repo-standards.md. Next: set the repo description and topics in GitHub settings, add a CI badge.
