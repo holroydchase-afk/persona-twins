@@ -100,4 +100,4 @@ story-keeper, release-captain) from holroydchase-afk/studio-agents. CLAUDE.md sa
   privacy-security confirmed all 12 personas are fictional. Spec: `docs/specs/PTW-license-audit.md`.
 
 ## Repo best-practices pass (2026-11-25)
-- Done: added `.github/CODEOWNERS` and weekly Actions Dependabot. Part of the GitHub best-practices audit; see studio-agents docs/repo-standards.md.
+- Done: added weekly Actions Dependabot. Part of the GitHub best-practices audit; see studio-agents docs/repo-standards.md.
