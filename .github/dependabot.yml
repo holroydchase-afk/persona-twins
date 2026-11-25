@@ -1,0 +1,10 @@
+# Weekly GitHub Actions updates, minor and patch grouped (studio-agents templates/security).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
