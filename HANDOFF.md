@@ -98,3 +98,6 @@ story-keeper, release-captain) from holroydchase-afk/studio-agents. CLAUDE.md sa
 - License audit LIC-1 (2026-11-25, Chase's intake from Product Studio): LICENSE (MIT, Chase Holroyd), README License
   section and `cli/package.json` already matched; added `THIRD_PARTY_NOTICES.md` and linked it from the README.
   privacy-security confirmed all 12 personas are fictional. Spec: `docs/specs/PTW-license-audit.md`.
+
+## Repo best-practices pass (2026-11-25)
+- Done: added `.github/CODEOWNERS` and weekly Actions Dependabot. Part of the GitHub best-practices audit; see studio-agents docs/repo-standards.md.
