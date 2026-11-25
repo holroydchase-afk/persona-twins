@@ -3,18 +3,17 @@
 stage: building
 goal: portfolio
 milestone: Stakeholder Twins v1
-now: Wired to the latest studio-agents (agent-prompt fallback, qa-tdd can't be skipped on code PRs, thread opening)
+now: License audit LIC-1 done (THIRD_PARTY_NOTICES.md, README License links it); PR open
 next: Republish the page; run ux-reviewer and privacy-security showcase review before the demo goes public
 waiting_on_chase:
   - Share the demo page publicly (page Share menu)
   - Paste the Stakeholder Twins INTAKE block into Product Studio
-  - Rename the GitHub repo to stakeholder-twins (Settings)
 blockers: []
 -->
 
 Studio-wide status: https://github.com/holroydchase-afk/pm-tools/blob/main/STUDIO-STATUS.md
 
-Last updated: 2026-11-22
+Last updated: 2026-11-25
 
 ## Where things stand
 
@@ -22,7 +21,8 @@ Last updated: 2026-11-22
 - **Main demo:** `stakeholder-twins.html`, published as a Claude page at
   https://claude.ai/artifact/PUZwvGNNfsNYdbN57KKoFc. Runs on the viewer's Claude account (`sample` capability
   with images, `tts` for voice, `dictation` for the mic). No API key.
-- **Docs:** README with usage and persona format; MIT license, copyright Chase Holroyd.
+- **Docs:** README with usage and persona format; MIT license, copyright Chase Holroyd. `THIRD_PARTY_NOTICES.md` lists
+  the runtime-loaded font (Atkinson Hyperlegible Next, OFL 1.1), the CLI's npm dependencies and the project-owned sample image.
 - **Optional CLI:** `cli/twin.ts`, Claude API with prompt caching. Needs `ANTHROPIC_API_KEY`.
 - **Personas:** seven twins in `personas/`, in picker order: `everyday.md` (Rosa, default), `customer.md` (Maya, the
   paying buyer), `skeptic.md` (Dana), `marketing.md` (Priya), `sales.md` (Marcus), `finance.md` (Graham, abrasive CFO),
@@ -62,6 +62,9 @@ story-keeper, release-captain) from holroydchase-afk/studio-agents. CLAUDE.md sa
   carry a red edge line (DS-R2); whether to change the accent is a studio-level call.
 - `.claude/design-rules.md` allows 11px uppercase eyebrow labels, which STUDIO-CORE principle 1 forbids. Fix upstream
   in studio-agents.
+- `PTW-AUD-13` (cli/test/audience.test.ts) checks the audience-pack branch diff against main, so it fails on every
+  later branch (missing new file: personas/audience/hiring-manager.md) now that PR #12 is merged. Retire or rescope it
+  test-first in the next code PR (found 2026-11-25 during LIC-1).
 - Voices repeat: customer and product are both airy; sales and finance both use the default voice.
 
 ## Plan
@@ -92,3 +95,6 @@ story-keeper, release-captain) from holroydchase-afk/studio-agents. CLAUDE.md sa
 
 ## Done
 - Community files (2026-11-24, Chase: will engineers see an amateur repo): added CONTRIBUTING, CODE_OF_CONDUCT, issue templates and a PR template (plus SECURITY.md where missing), per `studio-agents` docs/repo-standards.md. Next: set the repo description and topics in GitHub settings, add a CI badge.
+- License audit LIC-1 (2026-11-25, Chase's intake from Product Studio): LICENSE (MIT, Chase Holroyd), README License
+  section and `cli/package.json` already matched; added `THIRD_PARTY_NOTICES.md` and linked it from the README.
+  privacy-security confirmed all 12 personas are fictional. Spec: `docs/specs/PTW-license-audit.md`.
