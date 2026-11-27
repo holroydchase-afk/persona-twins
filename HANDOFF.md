@@ -10,6 +10,9 @@ waiting_on_chase:
   - Paste the Stakeholder Twins INTAKE block into Product Studio
 blockers: []
 -->
+## Nov 27: engineering standard
+- CI (typecheck), gitleaks history scan, npm audit, CodeQL, all Actions pinned to SHAs. Not yet: lint (no ESLint config here) and `npm test` in CI, because PTW-AUD-13 (a one-off diff-scope test from the audience-pack PR) fails on main. Chase to decide: retire or rewrite it, then add `npm test` to ci.yml.
+
 
 Studio-wide status: https://github.com/holroydchase-afk/pm-tools/blob/main/STUDIO-STATUS.md
 
