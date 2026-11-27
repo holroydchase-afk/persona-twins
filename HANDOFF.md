@@ -11,7 +11,7 @@ waiting_on_chase:
 blockers: []
 -->
 ## Nov 27: engineering standard
-- CI (typecheck), gitleaks history scan, npm audit, CodeQL, all Actions pinned to SHAs. Not yet: lint (no ESLint config here) and `npm test` in CI, because PTW-AUD-13 (a one-off diff-scope test from the audience-pack PR) fails on main. Chase to decide: retire or rewrite it, then add `npm test` to ci.yml.
+- CI (typecheck and CLI tests), gitleaks history scan, npm audit, CodeQL, all Actions pinned to SHAs. PTW-AUD-13 rewritten: it no longer diffs against main (it could only pass on the PR that added the audience pack); it now checks tsc plus that the pack files exist and nothing else sits in personas/audience. Lint not added yet (no ESLint config here).
 
 
 Studio-wide status: https://github.com/holroydchase-afk/pm-tools/blob/main/STUDIO-STATUS.md

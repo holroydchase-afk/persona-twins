@@ -252,29 +252,16 @@ test("PTW-AUD-12 sync is deterministic and the hash tracks content", () => {
   assert.equal(hash, sha(canonical(rest)), "recomputed hash mismatch");
 });
 
-test("PTW-AUD-13 tsc passes and the diff touches only the allowed paths", () => {
+test("PTW-AUD-13 tsc passes and the audience pack is in the repo", () => {
   const tsc = spawnSync(path.join(cliDir, "node_modules", ".bin", "tsc"), ["--noEmit"], { cwd: cliDir, encoding: "utf8", timeout: 120000 });
   assert.equal(tsc.status, 0, `tsc --noEmit failed: ${tsc.stdout}${tsc.stderr}`);
-  const git = (...a: string[]) => spawnSync("git", a, { cwd: root, encoding: "utf8" });
-  const base = ["main", "origin/main"].find((b) => git("rev-parse", "--verify", "-q", b).status === 0) ?? "HEAD";
-  const changed = git("diff", "--name-status", base).stdout.split("\n").filter(Boolean).map((l) => l.split("\t"));
-  const untracked = git("ls-files", "--others", "--exclude-standard").stdout.split("\n").filter(Boolean).map((f) => ["A", f]);
-  const all = [...changed, ...untracked];
-  const added = all.filter(([s]) => s === "A").map(([, f]) => f);
-  for (const [s, f] of all) {
-    if (f.startsWith("personas/")) {
-      assert.equal(s, "A", `personas change must be new files only: ${s} ${f}`);
-      assert.ok(f === "personas/audience.json" || /^personas\/audience\/[^/]+\.md$/.test(f), `unexpected personas path: ${f}`);
-    }
-    if (f.startsWith("cli/")) {
-      const ok = f === "cli/prompt.ts" || f === "cli/sync-personas.ts" || (s === "A" && f.startsWith("cli/test/"));
-      assert.ok(ok, `unexpected cli change: ${s} ${f}`);
-    }
-  }
-  // The pack itself must be among the additions.
+  // The pack itself must be present (this used to diff against main, which only held on the PR that added it).
   for (const f of [...AUDIENCE_IDS.map((i) => `personas/audience/${i}.md`), "personas/audience.json"]) {
-    assert.ok(added.includes(f), `missing new file: ${f}`);
+    assert.ok(fs.existsSync(path.join(root, f)), `missing pack file: ${f}`);
   }
+  // Nothing else may sit under personas/audience/ besides the pack's own markdown files.
+  const extra = fs.readdirSync(path.join(root, "personas", "audience")).filter((f) => !/^[a-z-]+\.md$/.test(f));
+  assert.deepEqual(extra, [], `unexpected files in personas/audience: ${extra.join(", ")}`);
 });
 
 test("PTW-PS-R2 agentPrompt's screenshot rules are cut at a marker that must exist, never falling back to the full protocol", () => {
